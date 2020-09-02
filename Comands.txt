@@ -1,0 +1,4 @@
+Crear proyecto
+npx create-react-app crud-simple-udemy
+Iniciar servidor 
+npm run start
