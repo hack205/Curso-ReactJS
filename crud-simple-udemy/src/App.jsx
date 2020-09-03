@@ -1,13 +1,14 @@
 import React from 'react';
-import shortid from 'shortid';
-
+import shortid from 'shortid'; // es necesario agregar esta libreria para que genere id aleatorios 
+                               // y aparte hay que ejecutar este comando en terinal
+                               //   npm i shortid
 function App() {
 
   const [tarea, setTarea] = React.useState('')
   const [tareas, setTareas] = React.useState([])
   const [modoEdicion, setModoEdicion] = React.useState(false)
   const [id, setId] = React.useState('')
-  const [error, setError] = React.useState(null)
+  const [error, setError] = React.useState(null) // iniciamos este set error en null y esperamos a que cambie el mensaje 
 
 
   const agregarTarea = e => {
@@ -21,7 +22,7 @@ function App() {
 
     setTareas([
       ...tareas,
-      {id: shortid.generate(), nombreTarea:tarea}
+      {id: shortid.generate(), nombreTarea:tarea} // la funcion shortid.generate() ayuda a generar id aleatorios y unicos
     ])
 
     setTarea('')
@@ -29,8 +30,8 @@ function App() {
   }
 
   const eliminarTarea = id => {
-    const arrayFiltrado = tareas.filter(item => item.id !== id)
-    setTareas(arrayFiltrado)
+    const arrayFiltrado = tareas.filter(item => item.id !== id) // solo a los que sean diferentes del id los agregara 
+    setTareas(arrayFiltrado)                                    // loq eu sean iguales los excluye y guarda el array en el set tareas
   }
 
   const editar = item => {
@@ -45,12 +46,12 @@ function App() {
     if(!tarea.trim()){
       console.log('Elemento Vacío')
       setError('Escriba algo por favor...')
-      return
+      return // si no escribe nada llega hasta el return y se sale 
     }
 
-    const arrayEditado = tareas.map(
-      item => item.id === id ? {id:id, nombreTarea:tarea} : item
-      )
+    const arrayEditado = tareas.map( // creamos un array y en el cual buscamos el id y si lo encontramos 
+      item => item.id === id ? {id:id, nombreTarea:tarea} : item // modificamos los valores y si no es solo lo agragamos
+      ) // y guardamos el array en el de set tareas
     
     setTareas(arrayEditado)
     setModoEdicion(false)
@@ -69,11 +70,11 @@ function App() {
           <ul className="list-group">
             {
 
-              tareas.length === 0 ? (
+              tareas.length === 0 ? ( // si las tareas son 0 pinta un texto 
                 <li className="list-group-item">No hay tareas</li>
               ) : (
-                tareas.map(item => (
-                  <li className="list-group-item" key={item.id}>
+                tareas.map(item => (// imprime las tareas disponibles
+                  <li className="list-group-item" key={item.id}> 
                     <span className="lead">{item.nombreTarea}</span>
   
                     <button 
@@ -118,7 +119,7 @@ function App() {
               className="form-control mb-2"
               placeholder="Ingrese Tarea"
               onChange={ e => setTarea(e.target.value) }
-              value={tarea}
+              value={tarea} // pasamos la tarea completa por valor para poder modificarla
             />
 
             {
